@@ -1981,16 +1981,16 @@ contains
 
                    forcing_field%field_0d(:,:,iblock) = atm_fe_bioavail_frac(:,:) * &
                         (iron_frac_in_atm_fine_dust * atm_fine_dust_flux(:,:,iblock) + &
-                         iron_frac_in_atm_coarse_dust * atm_coarse_dust_flux(:,:,iblock) + &
-                         iron_frac_in_atm_bc * atm_black_carbon_flux(:,:,iblock))
+                         iron_frac_in_atm_coarse_dust * atm_coarse_dust_flux(:,:,iblock)) + &
+                        iron_frac_in_atm_bc * atm_black_carbon_flux(:,:,iblock)
 
                    ! add component from seaice
 
                    seaice_fe_bioavail_frac(:,:) = atm_fe_bioavail_frac(:,:)
 
                    forcing_field%field_0d(:,:,iblock) = forcing_field%field_0d(:,:,iblock) + seaice_fe_bioavail_frac(:,:) * &
-                        (iron_frac_in_seaice_dust * seaice_dust_flux(:,:,iblock) + &
-                         iron_frac_in_seaice_bc * seaice_black_carbon_flux(:,:,iblock))
+                        (iron_frac_in_seaice_dust * seaice_dust_flux(:,:,iblock)) + &
+                        iron_frac_in_seaice_bc * seaice_black_carbon_flux(:,:,iblock)
 
                    ! convert to nmol/cm^2/s
                    forcing_field%field_0d(:,:,iblock) = (1.0e9_r8 / molw_Fe) * forcing_field%field_0d(:,:,iblock)
